@@ -7,8 +7,10 @@ public class Empleado extends Persona {
     String departamento;
     float sueldo;
     int horasExtra;
+    private Direccion domicilio;
 
     public Empleado() {
+        domicilio = new Direccion();
     }
 
     public Empleado(int numeroEmpleado, String departamento, float sueldo, int horasExtra) {
@@ -16,6 +18,7 @@ public class Empleado extends Persona {
         this.departamento = departamento;
         this.sueldo = sueldo;
         this.horasExtra = horasExtra;
+        
     }
 
     public Empleado(int numeroEmpleado, String departamento, float sueldo, int horasExtra, String nombre, String apPaterno, String apMaterno, int edad, String curp) {
@@ -61,6 +64,14 @@ public class Empleado extends Persona {
     @Override
     public String toString() {
         return "empleado{" + "numeroEmpleado=" + numeroEmpleado + ", departamento=" + departamento + ", sueldo=" + sueldo + ", horasExtra=" + horasExtra + '}';
+    }
+
+    public Direccion getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(Direccion domicilio) {
+        this.domicilio = domicilio;
     }
     
     

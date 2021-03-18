@@ -1,21 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mx.unam.aragon.gui;
+
+import java.util.ArrayList;
+import mx.unam.aragon.dp.Empleado;
 
 /**
  *
  * @author fernandasolange
  */
 public class VentanaEmpleado extends javax.swing.JFrame {
-
+    private ArrayList<Empleado> lista;
     /**
      * Creates new form VentanaEmpleado
      */
     public VentanaEmpleado() {
         initComponents();
+        lista = new ArrayList<Empleado>();
     }
 
     /**
@@ -69,10 +69,10 @@ public class VentanaEmpleado extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Base de datos empleado");
 
-        jTabbedPane1.setBackground(new java.awt.Color(51, 204, 255));
+        jTabbedPane1.setBackground(new java.awt.Color(255, 102, 102));
         jTabbedPane1.setFont(new java.awt.Font("Avenir Next", 0, 14)); // NOI18N
 
-        PanelDatos.setBackground(new java.awt.Color(102, 153, 255));
+        PanelDatos.setBackground(new java.awt.Color(255, 153, 153));
 
         LabelNombre.setFont(new java.awt.Font("Avenir", 1, 14)); // NOI18N
         LabelNombre.setText("Nombre:  ");
@@ -98,7 +98,7 @@ public class VentanaEmpleado extends javax.swing.JFrame {
 
         FieldCurp.setFont(new java.awt.Font("Avenir", 0, 14)); // NOI18N
 
-        PanelDireccion.setBackground(new java.awt.Color(204, 204, 204));
+        PanelDireccion.setBackground(new java.awt.Color(255, 204, 204));
         PanelDireccion.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.MatteBorder(null), "Dirección", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Avenir", 1, 14))); // NOI18N
 
         LabelCalle.setFont(new java.awt.Font("Avenir", 1, 14)); // NOI18N
@@ -244,7 +244,8 @@ public class VentanaEmpleado extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Datos personales", PanelDatos);
 
-        PanelEmpresariales.setBackground(new java.awt.Color(51, 204, 255));
+        PanelEmpresariales.setBackground(new java.awt.Color(255, 153, 153));
+        PanelEmpresariales.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         PanelEmpresariales.setFont(new java.awt.Font("Avenir Next", 1, 13)); // NOI18N
 
         LabelEmpleado.setFont(new java.awt.Font("Avenir", 1, 14)); // NOI18N
@@ -279,22 +280,17 @@ public class VentanaEmpleado extends javax.swing.JFrame {
             .addGroup(PanelEmpresarialesLayout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(PanelEmpresarialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelEmpresarialesLayout.createSequentialGroup()
-                        .addComponent(LabelHoras)
-                        .addGap(18, 18, 18)
-                        .addComponent(FieldHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelEmpresarialesLayout.createSequentialGroup()
-                        .addComponent(LabelSueldo)
-                        .addGap(18, 18, 18)
-                        .addComponent(FieldSueldo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelEmpresarialesLayout.createSequentialGroup()
-                        .addComponent(LabelDepartamento)
-                        .addGap(18, 18, 18)
-                        .addComponent(FieldDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelEmpresarialesLayout.createSequentialGroup()
-                        .addComponent(LabelEmpleado)
-                        .addGap(18, 18, 18)
-                        .addComponent(FieldEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(LabelSueldo)
+                    .addComponent(LabelHoras)
+                    .addComponent(LabelDepartamento)
+                    .addComponent(LabelEmpleado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelEmpresarialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(FieldEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addGroup(PanelEmpresarialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(FieldDepartamento, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                        .addComponent(FieldHoras)
+                        .addComponent(FieldSueldo)))
                 .addContainerGap(413, Short.MAX_VALUE))
         );
         PanelEmpresarialesLayout.setVerticalGroup(
@@ -323,6 +319,11 @@ public class VentanaEmpleado extends javax.swing.JFrame {
 
         ButtonRegistro.setFont(new java.awt.Font("Avenir Next", 0, 14)); // NOI18N
         ButtonRegistro.setText("Nuevo Registro");
+        ButtonRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonRegistroMouseClicked(evt);
+            }
+        });
         ButtonRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonRegistroActionPerformed(evt);
@@ -331,6 +332,17 @@ public class VentanaEmpleado extends javax.swing.JFrame {
 
         ButtonEnviar.setFont(new java.awt.Font("Avenir", 0, 14)); // NOI18N
         ButtonEnviar.setText("Enviar");
+        ButtonEnviar.setEnabled(false);
+        ButtonEnviar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonEnviarMouseClicked(evt);
+            }
+        });
+        ButtonEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonEnviarActionPerformed(evt);
+            }
+        });
 
         ButtonIzq.setFont(new java.awt.Font("Avenir Next", 1, 14)); // NOI18N
         ButtonIzq.setText("<<");
@@ -392,12 +404,70 @@ public class VentanaEmpleado extends javax.swing.JFrame {
 
     private void ButtonRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRegistroActionPerformed
         // TODO add your handling code here:
+    
     }//GEN-LAST:event_ButtonRegistroActionPerformed
 
     private void FieldSueldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldSueldoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_FieldSueldoActionPerformed
 
+    private void ButtonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEnviarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonEnviarActionPerformed
+
+    private void ButtonRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonRegistroMouseClicked
+        System.out.println("Probando los eventos del ratón");
+        //Quitar este sout
+        ButtonEnviar.setEnabled(true);
+        this.limpiarForm();
+        
+    }//GEN-LAST:event_ButtonRegistroMouseClicked
+
+    private void ButtonEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonEnviarMouseClicked
+        Empleado tmp = new Empleado ();
+        
+        tmp.setNombre(this.FieldNombre.getText());
+        tmp.setApPaterno(this.FieldApellidoPat.getText());
+        tmp.setApMaterno(this.FieldApellidoMat.getText());
+        tmp.setEdad(Integer.parseInt(this.FieldEdad.getText()));
+        tmp.setCurp(this.FieldCurp.getText());
+        
+        tmp.getDomicilio().setCalle(this.FieldCalle.getText());
+        tmp.getDomicilio().setColonia(this.FieldColonia.getText());
+        tmp.getDomicilio().setNumero(this.FieldNumero.getText());
+        tmp.getDomicilio().setDelegacion(this.FieldDelegacion.getText());
+        tmp.getDomicilio().setEstado(this.FieldEstado.getText());
+        tmp.getDomicilio().setCp(this.FieldCp.getText());
+        
+        tmp.setNumeroEmpleado(Integer.parseInt(this.FieldEmpleado.getText()));
+        tmp.setDepartamento(this.FieldDepartamento.getText());
+        tmp.setSueldo(Float.parseFloat(this.FieldSueldo.getText()));
+        tmp.setHorasExtra(Integer.parseInt(this.FieldHoras.getText()));
+        
+        lista.add(tmp);
+                this.limpiarForm();
+                this.ButtonEnviar.setEnabled(false);
+        System.out.println("Elementos guardados en mamoria: " + lista.size());
+    }//GEN-LAST:event_ButtonEnviarMouseClicked
+
+    private void limpiarForm(){
+        this.FieldNombre.setText("");
+        this.FieldApellidoPat.setText("");
+        this.FieldApellidoMat.setText("");
+        this.FieldEdad.setText("");
+        this.FieldCurp.setText("");
+        this.FieldCalle.setText("");
+        this.FieldNumero.setText("");
+        this.FieldColonia.setText("");
+        this.FieldDelegacion.setText("");
+        this.FieldEstado.setText("");
+        this.FieldCp.setText("");
+        this.FieldEmpleado.setText("");
+        this.FieldDepartamento.setText("");
+        this.FieldSueldo.setText("");
+        this.FieldHoras.setText(""); 
+        
+}
     /**
      * @param args the command line arguments
      */
